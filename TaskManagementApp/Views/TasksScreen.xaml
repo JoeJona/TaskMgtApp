@@ -1,0 +1,100 @@
+﻿<Window x:Class="TaskManagementApp.Views.TasksScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskManagementApp.Views"
+        mc:Ignorable="d"
+        Title="TasksScreen" Height="900" Width="1600">
+    <Border Background="#258ace">
+        <StackPanel Height="800" Width="1400" Background="#2e3137" HorizontalAlignment="Center">
+            <Button Content="Log Out" Background="#09cbef" FontSize="28" Foreground="#fff" Width="200" Height="40" HorizontalAlignment="Right" Click="logOut_Click"/>
+            <Label Content="Task Management Application" Margin="10 20" Foreground="#fff" FontSize="26" HorizontalAlignment="Center"/>
+            <Separator/>
+            <Grid Height="600" Width="1300" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="600"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="900"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Height="450" Grid.Row="0" Grid.Column="0">
+                    <Label Content="Title" Width="400" Margin="20 0" Foreground="#fff" FontSize="26"/>
+                    <TextBox x:Name="txtTitle" Width="400" Margin="20 0" Foreground="#000" FontSize="26"/>
+                    <Label Content="Description" Width="400" Margin="20 0" Foreground="#fff" FontSize="26"/>
+                    <TextBox x:Name="txtDescription" Width="400" Margin="20 0" Foreground="#000" FontSize="26"/>
+                    <Label Content="Due Date" Width="400" Margin="20 0" Foreground="#fff" FontSize="26"/>
+                    <DatePicker x:Name="txtDueDate" Width="360" Margin="20 0" Foreground="#000" FontSize="26"/>
+                    <Label Content="Status" Width="400" Margin="20 0" Foreground="#fff" FontSize="26"/>
+                    <ComboBox x:Name="txtStatus" Width="360" Margin="20 0" Foreground="#000" FontSize="26" SelectedIndex="0">
+                        <ComboBoxItem Content="Select Status"/>
+                        <ComboBoxItem Content="Pending"/>
+                        <ComboBoxItem Content="In-Progress"/>
+                        <ComboBoxItem Content="Completed"/>
+                    </ComboBox>
+
+                    <Button Content="Add" Width="360" Background="#58be23" Margin="20 20" x:Name="txtAdd" Foreground="#fff" FontSize="26" Click="txtAdd_Click"/>
+                    <Button Content="Update" Width="360" Background="#58be23" Margin="20 0" x:Name="txtUpdate" Foreground="#fff" FontSize="26" Click="txtUpdate_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding isUpdated}" Value="true" >
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                </StackPanel>
+
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="500"/>
+                    </Grid.RowDefinitions >
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBox x:Name="txtSearchText"  Width="400" Foreground="#000" FontSize="22" Height="40"/>
+                        <Button Content="Search" Width="100" Height="40" Background="#58be23" Margin="20 0" x:Name="txtFilter" Foreground="#fff" FontSize="26" Click="txtSearch_Click" />
+                        <ComboBox x:Name="txtFilterText" Width="200" Height="40" Margin="30 0" Foreground="#000" FontSize="22" SelectedIndex="0">
+                            <ComboBoxItem Content="Select Status"/>
+                            <ComboBoxItem Content="Pending"/>
+                            <ComboBoxItem Content="In-Progress"/>
+                            <ComboBoxItem Content="Completed"/>
+                        </ComboBox>
+                        <Button Content="Filter" Width="100" Height="40" Background="#58be23" x:Name="txtSearch" Foreground="#fff" FontSize="26" Click="txtFilter_Click" />
+                    </StackPanel>
+
+                    <DataGrid x:Name="TasksList" CanUserDeleteRows="True" Grid.Row="1" Grid.Column="1" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*" Visibility="Hidden" />
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
+                            <DataGridTextColumn Header="Due Date" Binding="{Binding Due_Date}" Width="*" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                            <DataGridTemplateColumn Width="220">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>Actions</TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Select to Update" Width="100" Margin="5 0" Background="#fcd703" x:Name="txtUpdate" Foreground="#fff" Click="update_Click"/>
+                                            <Button Content="Delete" Width="100" Margin="5 0" Background="#fc2803" x:Name="txtDelete" Foreground="#fff" Click="txtDelete_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>
